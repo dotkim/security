@@ -17,10 +17,9 @@ filebeat.autodiscover:
 filebeat.modules:
 - module: suricata
 
-output.elasticsearch:
-  hosts: ['http://elasticsearch:9200']
-  username: elastic
-  password: changeme
+output.logstash:
+  hosts: ["localhost:5044"]
+  index: "SuricataIDPS"
 
 ## HTTP endpoint for health checking
 ## https://www.elastic.co/guide/en/beats/filebeat/current/http-endpoint.html

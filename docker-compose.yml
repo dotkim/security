@@ -13,10 +13,7 @@ services:
       - sys_nice
     restart: always
   filebeat:
-    build:
-      context: extensions/filebeat/
-      args:
-        ELK_VERSION: latest
+    image: docker.elastic.co/beats/filebeat
     # Run as 'root' instead of 'filebeat' (uid 1000) to allow reading
     # 'docker.sock' and the host's filesystem.
     user: root
@@ -29,6 +26,9 @@ services:
       - --strict.perms=false
     volumes:
       - suricata-data:/var/log/suricata:ro
+      - type: bind
+        source: ./extensions/filebeat/config/filebeat.yml
+        target: /usr/share/filebeat/filebeat.yml
     networks:
       - elk
 volumes:

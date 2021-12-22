@@ -26,9 +26,14 @@ services:
       - --strict.perms=false
     volumes:
       - suricata-data:/var/log/suricata:ro
-      - ./extensions/filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+    configs:
+      - source: filebeat_config
+        target: /usr/share/filebeat/filebeat.yml
     networks:
       - elk
+configs:
+  filebeat_config:
+    file: ./extensions/filebeat/config/filebeat.yml
 volumes:
   suricata-data:
 networks:
